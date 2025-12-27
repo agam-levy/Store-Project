@@ -1,13 +1,26 @@
-//this is the main file of the server, הוא מרים את השרת
-import dotenv from "dotenv"
-dotenv.config();
+import 'dotenv/config';
 
-import express from "express"
-import bodyParser from "body-parser"
+import express from 'express';
+import mongoose from 'mongoose';
+
 
 const app = express();
+app.use(express.json());
 
-app.listen(PORT,()=>{
-    console.log(`server is running on port: ${PORT}`)
-});
-const PORT= process.env.PORT || 7000;
+const PORT: number = Number(process.env.PORT) || 8000;
+
+const MONGO_URL = process.env.MONGO_URL;
+if (!MONGO_URL) {
+  throw new Error('Missing MONGO_URL');
+}
+
+mongoose
+        .connect(MONGO_URL)
+        .then(()=>{
+            console.log("DB connected succsessfully.")
+            app.listen(PORT,()=>{
+                console.log(`server is running on port: ${PORT}`)
+            });
+        })
+        .catch((error)=> console.log(error));
+
