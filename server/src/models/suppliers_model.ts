@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 // תיאור צורת האובייקט :interface
-interface ISuppliers {
+export interface ISuppliers {
+  _id: mongoose.Types.ObjectId;
   name: string;
   email: string;
   address: string;

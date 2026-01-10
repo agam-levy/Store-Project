@@ -1,24 +1,21 @@
 import mongoose, { Schema } from "mongoose";
+import type {  ISupplier_items } from "./supplier_items_model";
 
 // תיאור צורת האובייקט :interface
-interface IStore_items {
-  supplier_id: mongoose.Types.ObjectId;
-  supplierItem_id: mongoose.Types.ObjectId;
+export interface IStore_items {
+  _id: mongoose.Types.ObjectId;
+  supplierItem_id: mongoose.Types.ObjectId |  ISupplier_items;
   name: string;
   stock: number;
   sellPriceCents: number;
   category: string;
   imageUrl: string;
+  color: string;
 }
 
 
 // DBקובע איך הנתונים נשמרים ב
 const store_itemsSchema = new mongoose.Schema<IStore_items>({
-  supplier_id: {
-    type: Schema.Types.ObjectId,
-    ref: "Supplier",
-    required: true,
-  },
   supplierItem_id: {
     type: Schema.Types.ObjectId,
     ref: "Supplier_items",
@@ -47,6 +44,10 @@ const store_itemsSchema = new mongoose.Schema<IStore_items>({
   },
   imageUrl: {
     type: String,
+  },
+  color: {
+    type: String,
+    required: true,
   },
 });
 

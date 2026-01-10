@@ -1,8 +1,10 @@
 import mongoose, { Schema } from "mongoose";
+import type {  ISuppliers } from "./suppliers_model";
 
 // תיאור צורת האובייקט :interface
-interface ISupplier_items {
-  supplier_id: mongoose.Types.ObjectId;
+export interface ISupplier_items {
+  _id: mongoose.Types.ObjectId;
+  supplier_id: mongoose.Types.ObjectId | ISuppliers;
   name: string;
   costPriceCents: number;
 }
@@ -12,7 +14,7 @@ interface ISupplier_items {
 const supplier_itemsSchema = new mongoose.Schema<ISupplier_items>({
   supplier_id: {
     type: Schema.Types.ObjectId,
-    ref: "Supplier",
+    ref: "Suppliers",
     required: true,
   },
   name: {

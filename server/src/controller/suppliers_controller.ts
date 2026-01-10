@@ -5,10 +5,13 @@ import StoreItem from "../models/store_items_model";
 
 export const createSupplier = async (req: Request, res: Response) => {
   try {
+    if(!req.body.name||typeof req.body.name !== "string"){
+      return res.status(400).json({message:"name input is not valid"})
+    }
     const newSupplier = new Supplier({name: req.body.name,});
 
-    const savedSupplier = await newSupplier.save();
-    return res.status(200).json(savedSupplier);
+    await newSupplier.save();
+    return res.status(200).json(newSupplier);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ errorMessage: error.message });
@@ -75,17 +78,14 @@ export const deleteSupplier = async (req: Request, res: Response) => {
         return res.status(404).json({ message: "Supplier not found" });
       }
 
-      // {_id:a1, _id:a2, _id:a3} :
-      const supplierItems = await SupplierItem.find({ supplier_id: supplierId },{ _id: 1 });
-      if (supplierItems.length == 0){
+      // {a1, a2, a3} : list of supplier item ids
+      const supplierItemIds = await SupplierItem.distinct("_id",{ supplier_id: supplierId });
+      if (supplierItemIds.length == 0){
         await supplier.deleteOne();
         return res.status(200).json({ message: "Supplier deleted successfully" }); 
-      }
+      } 
 
-      // [a1, a2, a3] :
-      const supplierItemIds = supplierItems.map((si) => si._id); 
-
-      await StoreItem.deleteMany({ supplierItem_id: { $in: supplierItemIds } });
+      await StoreItem.deleteMany({ supplier_item_id: { $in: supplierItemIds } });
       await SupplierItem.deleteMany({  supplier_id: supplierId } );
       await supplier.deleteOne();
 
