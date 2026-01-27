@@ -1,11 +1,16 @@
-import express from "express"
-import { createSupplierItem, getAllSupplierItems, getSupplierItemsById, changePriceSupplierItem, deleteSupplierItem } from "../controller/supplier_items_controller"
+import { Router } from "express";
+import {createSupplierItem,getAllSupplierItems,getSupplierItemsById,changePriceSupplierItem,deleteSupplierItem} from "../controller/supplier_items_controller";
 
-const route = express.Router();
-route.post("/", createSupplierItem);
-route.get("/", getAllSupplierItems);
-route.get("/:id", getSupplierItemsById);
-route.put("/:id", changePriceSupplierItem);
-route.delete("/:id", deleteSupplierItem);
+import { asyncHandler } from "../middlewares/asyncHandler";
+import { validateBody, validateParams } from "../middlewares/validate";
+import {createSupplierItemSchema,updateSupplierItemPriceSchema,supplierItemIdParamSchema} from "../validations/supplier_items_validation";
+
+const route = Router();
+
+route.post("/", validateBody(createSupplierItemSchema), asyncHandler(createSupplierItem));
+route.get("/", asyncHandler(getAllSupplierItems));
+route.get("/:id", validateParams(supplierItemIdParamSchema), asyncHandler(getSupplierItemsById));
+route.put("/:id",validateParams(supplierItemIdParamSchema),validateBody(updateSupplierItemPriceSchema),asyncHandler(changePriceSupplierItem));
+route.delete("/:id", validateParams(supplierItemIdParamSchema), asyncHandler(deleteSupplierItem));
 
 export default route;
