@@ -1,11 +1,15 @@
-import express from "express"
-import { createStoreItem, getAllStoreItems, getStoreItemById, restockStoreItem, deleteStoreItem } from "../controller/store_items_controller"
+import { Router } from "express";
+import {createStoreItem,getAllStoreItems,getStoreItemById,restockStoreItem,deleteStoreItem,} from "../controller/store_items_controller";
+import { asyncHandler } from "../middlewares/asyncHandler";
+import { validateBody, validateParams } from "../middlewares/validate";
+import {createStoreItemSchema,restockStoreItemSchema,storeItemIdParamSchema,} from "../validations/store_items_validation";
 
-const route = express.Router();
-route.post("/", createStoreItem);
-route.get("/", getAllStoreItems);
-route.get("/:id", getStoreItemById);
-route.put("/:id", restockStoreItem);
-route.delete("/:id", deleteStoreItem);
+const route = Router();
+
+route.post("/", validateBody(createStoreItemSchema), asyncHandler(createStoreItem));
+route.get("/", asyncHandler(getAllStoreItems));
+route.get("/:id", validateParams(storeItemIdParamSchema), asyncHandler(getStoreItemById));
+route.put("/:id",validateParams(storeItemIdParamSchema),validateBody(restockStoreItemSchema),asyncHandler(restockStoreItem));
+route.delete("/:id", validateParams(storeItemIdParamSchema), asyncHandler(deleteStoreItem));
 
 export default route;

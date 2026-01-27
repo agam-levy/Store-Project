@@ -40,7 +40,7 @@ export class SupplierItemsManager {
 
     if (!updatedSupplierItem) throw new AppError(404, "Supplier item not found");
 
-    // לפי הדרישה: Store items צריכים להיות לפחות 30% מעל מחיר ספק
+
     const minSellPriceCents = Math.ceil(costPriceCents * 1.3);
 
     const updateResult = await StoreItem.updateMany(
@@ -58,7 +58,7 @@ export class SupplierItemsManager {
     const supplierItem = await SupplierItem.findById(id);
     if (!supplierItem) throw new AppError(404, "Supplier item not found");
 
-    // שימי לב לשם השדה: supplierItem_id (לא supplier_item_id)
+
     const storeRes = await StoreItem.deleteMany({ supplierItem_id: id });
     await supplierItem.deleteOne();
 
