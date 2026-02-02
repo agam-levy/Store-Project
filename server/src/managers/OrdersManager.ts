@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import StoreItem from "../models/store_items_model";
-import Order, { IOrderItem } from "../models/orders_model";
+import StoreItem from "../models/StoreItemsModel";
+import Order, { IOrderItem } from "../models/OrdersModel";
 import { AppError } from "../errors/AppError";
 
 type ReqItem = { item_id: string; quantity: number };

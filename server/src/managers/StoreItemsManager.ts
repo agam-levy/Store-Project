@@ -1,5 +1,5 @@
-import SupplierItem from "../models/supplier_items_model";
-import StoreItem from "../models/store_items_model";
+import SupplierItem from "../models/SupplierItemsModel";
+import StoreItem from "../models/StoreItemsModel";
 import { AppError } from "../errors/AppError";
 
 export class StoreItemsManager {

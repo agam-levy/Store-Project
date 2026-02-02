@@ -1,5 +1,5 @@
-import StoreItemCard from "./components/cardStoreItem";
-import Cart from "./components/cart";
+import StoreItemCard from "./components/StoreItem/StoreItemCard";
+import Cart from "./components/Cart/cart";
 import { useStoreItems } from "./hooks/getStoreItems";
 import { useCart } from "./hooks/useCart";
 import { createOrder } from "./api/orders";
