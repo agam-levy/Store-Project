@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SuppliersManager } from "../managers/suppliers_manager";
+import { SuppliersManager } from "../managers/SuppliersManager";
 
 export const createSupplier = async (req: Request, res: Response) => {
   const created = await SuppliersManager.createSupplier(req.body.name);

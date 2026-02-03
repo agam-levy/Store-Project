@@ -1,9 +1,9 @@
 import { Router } from "express";
-import {createSupplierItem,getAllSupplierItems,getSupplierItemsById,changePriceSupplierItem,deleteSupplierItem} from "../controller/supplier_items_controller";
+import {createSupplierItem,getAllSupplierItems,getSupplierItemsById,changePriceSupplierItem,deleteSupplierItem} from "../controller/SupplierItemsController";
 
 import { asyncHandler } from "../middlewares/asyncHandler";
 import { validateBody, validateParams } from "../middlewares/validate";
-import {createSupplierItemSchema,updateSupplierItemPriceSchema,supplierItemIdParamSchema} from "../validations/supplier_items_validation";
+import {createSupplierItemSchema,updateSupplierItemPriceSchema,supplierItemIdParamSchema} from "../validations/SupplierItemsValidation";
 
 const route = Router();
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { StoreItemsManager } from "../managers/store_items_manager";
+import { StoreItemsManager } from "../managers/StoreItemsManager";
 
 export const createStoreItem = async (req: Request, res: Response) => {
   const result = await StoreItemsManager.createStoreItem(req.body);

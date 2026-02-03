@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SupplierItemsManager } from "../managers/supplier_items_manager";
+import { SupplierItemsManager } from "../managers/SupplierItemsManager";
 
 export const createSupplierItem = async (req: Request, res: Response) => {
   const created = await SupplierItemsManager.createSupplierItem(req.body);

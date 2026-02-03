@@ -1,14 +1,16 @@
 import 'dotenv/config';
+import { config } from './config'
 
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import suppliersRoutes from "./routes/suppliers_routes";
-import supplierItemsRoutes from "./routes/supplier_items_routes";
-import storeItemsRoutes from "./routes/store_items_routes";
-import ordersRoutes from "./routes/orders_routes";
+import suppliersRoutes from "./routes/SuppliersRoutes";
+import supplierItemsRoutes from "./routes/SupplierItemsRoutes";
+import storeItemsRoutes from "./routes/StoreItemsRoutes";
+import ordersRoutes from "./routes/OrdersRoutes";
 
+import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 
 const app = express();
@@ -31,11 +33,11 @@ if (!MONGO_URL) {
 }
 
 mongoose
-        .connect(MONGO_URL)
+        .connect(config.mongoUrl)
         .then(()=>{
             console.log("DB connected succsessfully.")
-            app.listen(PORT,()=>{
-                console.log(`server is running on port: ${PORT}`)
+            app.listen(config.port,()=>{
+                console.log(`server is running on port: ${config.port}`)
             });
         })
         .catch((error)=> console.log(error));
