@@ -1,0 +1,32 @@
+.cart {
+    padding: 1rem;
+  }
+  
+  .header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  
+  .list {
+    margin-top: 1rem;
+  }
+  
+  .item {
+    align-items: center;
+  }
+  
+  .itemName {
+    font-weight: 600;
+  }
+  
+  .total {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  
+  .message {
+    font-size: 0.875rem;
+    color: #555;
+    margin-top: 0.25rem;
+  }
+  
